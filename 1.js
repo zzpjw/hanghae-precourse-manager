@@ -5,15 +5,17 @@ let result = '',
   count = 0,
   life = true;
 
-// app.get('/', (req, res) => {
-//   res.send();
-// });
+app.get('/', (req, res) => {
+  res.send(
+    'http://localhost:3000/{{이곳에 3자리의 숫자를 입력하여 게임을 진행하세요!}}',
+  );
+});
 
 app.get('/:input', (req, res) => {
   if (life) {
     const { input } = req.params;
 
-    if (!(Number(input * 1) && input.length === 3)) {
+    if (!(Number(input) && input.length === 3)) {
       throw new Error('Bad Request');
     }
 
@@ -58,6 +60,9 @@ app.get('/:input', (req, res) => {
 });
 
 app.use((err, req, res, next) => {
+  console.log(
+    '컴퓨터는 0과 9 사이의 서로 다른 숫자 3개를 무작위로 뽑습니다. (ex) 123, 759',
+  );
   res.status(400).send(err);
 });
 
